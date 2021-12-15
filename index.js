@@ -10,7 +10,7 @@ const cartRoute = require("./routes/cart");
 const staffRoute = require("./routes/staff");
 const serviceRoute = require("./routes/service");
 const contactRoute = require("./routes/contact");
-const blogRoute = require("./routes/blog");
+const blogRoute = require("./routes/blogs");
 const referanceRoute = require("./routes/referance");
 var cors = require("cors");
 
