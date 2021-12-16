@@ -12,7 +12,31 @@ const serviceRoute = require("./routes/service");
 const contactRoute = require("./routes/contact");
 const blogRoute = require("./routes/blogs");
 const referanceRoute = require("./routes/referance");
+const uploadRoute = require("./routes/uploadimage");
 var cors = require("cors");
+const multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'images')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
+// For Single image upload
+app.post('/uploadImage', upload.single('myFile'), (req, res, next) => {
+  const file = req.file
+  if (!file) {
+    const error = new Error('Please upload a file')
+    error.httpStatusCode = 400
+    return next(error)
+  }
+    res.send(file)
+  
+})
 
 dotenv.config();
 mongoose
@@ -25,6 +49,7 @@ mongoose
   app.use(cors());
   app.use(express.json());
   app.options('*', cors());
+  app.use("/api/uploadImage", uploadRoute);
   app.use("/api/product", productRoute);
  app.use("/api/user", userRoute);
  app.use("/api/auth", authRoute);
