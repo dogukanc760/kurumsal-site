@@ -59,8 +59,8 @@ router.get('/get-contact/:name', (req, res, next) => {
   const data = Contact.findOne({filePath:{$in:req.params.name}});
   
     res.set({'Content-Type': 'image/jpg'});
-    res.contentType('image/png');
-    res.contentType('image/jpg');
+    res.set({'Content-Type': 'image/png'});
+    res.set({'Content-Type': 'image/png'});
     res.sendFile(__dirname+'/images/'+req.params.name);
   
   
